@@ -12,11 +12,11 @@ void add_nbo(char *fname1, char *fname2){
 
     fread(File_read_buffer, sizeof(uint8_t), 4, fa);
     p = reinterpret_cast<uint32_t*>(File_read_buffer);
-    a = ntohl(*p);
+    a = htonl(*p);
 
     fread(File_read_buffer, sizeof(uint8_t), 4, fb);
     p = reinterpret_cast<uint32_t*>(File_read_buffer);
-    b = ntohl(*p);
+    b = htonl(*p);
 
     sum = a + b;
     printf("%d(0x%x) + %d(0x%x)", a, a, b, b);
