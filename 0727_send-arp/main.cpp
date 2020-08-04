@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
 //get senders mac
 //request--------------------------------------------------------
     packet.eth_.dmac_ = Mac("ff:ff:ff:ff:ff:ff"); //broadcast
-    packet.eth_.smac_ = my_mac;//Mac("00:0c:29:60:02:a1"); //My mac addr(receiver)
+    packet.eth_.smac_ = my_mac; //My mac addr
     packet.eth_.type_ = htons(EthHdr::Arp);
 
     packet.arp_.hrd_ = htons(ArpHdr::ETHER);
@@ -101,7 +101,7 @@ int main(int argc, char* argv[]) {
     packet.arp_.pln_ = Ip::SIZE;
     packet.arp_.op_ = htons(ArpHdr::Request); //ARP Request는 broadcast
 
-    packet.arp_.smac_ = Mac("00:0c:29:60:02:a1"); //my
+    packet.arp_.smac_ = my_mac; //my
     packet.arp_.sip_ = htonl(Ip(my_ip)); //my
     packet.arp_.tmac_ = Mac("ff:ff:ff:ff:ff:ff"); //broadcast
     packet.arp_.tip_ = htonl(Ip(sender_ip)); //you
@@ -143,7 +143,7 @@ int main(int argc, char* argv[]) {
     packet.arp_.op_ = htons(ArpHdr::Reply); //ARP Reply는 unicast
 
     packet.arp_.smac_ = my_mac; //my
-    packet.arp_.sip_ = htonl(Ip(target_ip));//htonl(Ip("0.0.0.0")); //gateway
+    packet.arp_.sip_ = htonl(Ip(target_ip)); //gateway
     packet.arp_.tip_ = htonl(Ip(sender_ip)); //you
 //--------------------------------------------------------
     res = pcap_sendpacket(handle, reinterpret_cast<const u_char*>(&packet), sizeof(EthArpPacket));
